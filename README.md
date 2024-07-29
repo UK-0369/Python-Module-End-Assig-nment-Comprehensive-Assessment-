@@ -8,17 +8,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
 url = 'https://docs.google.com/spreadsheets/d/1VP9BE_eI2yl6uUHSm4mGiiwjRdoqCqnkcIjsv5Q2ex4/export?format=csv'
 df = pd.read_csv(url)
 
-
-df.head()
-
-
-df['height'] = np.random.randint(150, 181, size=len(df))
-
-
+df['height'] = np.random.randint(150, 180, size=len(df))
 df.fillna(method='ffill', inplace=True)
 
 team_distribution = df['team'].value_counts()
@@ -31,9 +24,7 @@ plt.xlabel('Teams')
 plt.ylabel('Number of Employees')
 plt.show()
 
-
 position_distribution = df['position'].value_counts()
-
 
 plt.figure(figsize=(10, 6))
 sns.barplot(x=position_distribution.index, y=position_distribution.values)
@@ -43,12 +34,10 @@ plt.ylabel('Number of Employees')
 plt.xticks(rotation=45)
 plt.show()
 
-
 bins = [20, 30, 40, 50, 60]
 labels = ['20-30', '31-40', '41-50', '51-60']
 df['age_group'] = pd.cut(df['age'], bins=bins, labels=labels, right=False)
 age_group_distribution = df['age_group'].value_counts()
-
 
 plt.figure(figsize=(10, 6))
 sns.barplot(x=age_group_distribution.index, y=age_group_distribution.values)
@@ -86,16 +75,7 @@ plt.xlabel('Age')
 plt.ylabel('Salary')
 plt.show()
 
-insights = """
-1. Distribution of Employees Across Teams: The majority of employees belong to the Sales team, followed by the IT and HR teams.
-2. Segregation Based on Positions: The most common positions are Sales Executive and Software Engineer.
-3. Predominant Age Group: The 31-40 age group is the most predominant among employees.
-4. Highest Salary Expenditure: The IT team has the highest salary expenditure, and the position with the highest salary expenditure is the Software Engineer.
-5. Correlation Between Age and Salary: There is a positive correlation between age and salary, indicating that older employees tend to have higher salaries.
-"""
-
-print(insights)
-
 df.to_csv('ABC_company_employees.csv', index=False)
+
 
 
